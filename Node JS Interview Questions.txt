@@ -1,0 +1,247 @@
+					Shallow Copy and Deep Copy
+while copying the object we can do it with the two ways 
+1)Shallow Copy 
+2)Deep Copy
+
+
+Objects and arrays are stored in refernces
+=> Shallow Copy:-
+
+In case of shallow copy if the parent object have nested objected inside then we try copy the object by shallow copy
+then the variables copies as it is into other object with their values but in the case of nested object of parent
+object only the reference is copied 
+
+So problem is that if change or access the value of nested object inside the copy object their refernece and value 
+both will be changed of original object.
+
+In simple words if want to perform operation with nested copy object it will automatically effect the values of
+original object.
+
+
+
+=> Deep Copy:-
+
+In case of Deep copy of Original object the values inside the objects(Primitive Data Types) are copied as it is
+but in the case of the nested objects and arrays(non-primmitive data types) are copied instead of copying the whole object including
+their nested copy so now in copy object will refernce to newly created refernce object not the original one.
+
+as the nested copy object have different refernce so it resolve the probelm of changing value to the original
+object.
+ 
+
+
+
+============================================================================================================================================================================================
+							GENRATORS/GENRATOR FUNCTIONS IN JS
+
+
+Generator functions are those function which we can pause or resume while their execution
+
+Requirement of generator function is that if we want execution of line of code inside the function into batch of lines so same the we can do it with the help of 
+generator functions.
+
+
+ex- 
+
+function* simpleGenerator(){
+console.log("Generator Function called");
+yield 20;
+yield 30;
+yield 40;
+
+}
+
+let sG=simpleGenerator()
+
+console.log(sG.next())
+console.log(sG.next())
+console.log(sG.next())
+console.log(sG.next())
+
+Output=>
+
+function called
+{ value: 20, done: false }
+{ value: 30, done: false }
+{ value: 40, done: false }
+{ value: undefined, done: true }
+
+
+============================================================================================================================================================================================
+							Event Deligation in JS
+
+-With its effective use we can increase it in performance optimization.
+
+
+example:-
+
+<div id='grandparent'>
+    <div id='parent'>
+        <div id='child'>
+            Event Propogation
+        <div>
+    </div>
+</div>
+
+
+If we to perform some event on specific on element click let suppose on click on grantparent element i wan to perform some operation on click of grantparent element for that I will 
+put eventhandler on grandparent	same with parent and child;
+
+//problem
+document.getElementById('child').addEventListener('click',()=>{
+	console.log('child clicked')
+},false)
+document.getElementById('parent').addEventListner('click',()=>{
+	console.log("Parent clicked")
+},false)
+document.getElementById('grandparent').addEventListener('click',()=>{
+	console.log("Grandparent clicked")
+},false)
+
+
+//solution (by putting the eventhandler on the outermost element)
+
+document.getElementById('grandparent').addEventListener('clcik',(event)=>{
+		if(event.target.id==='child'){
+			console.log('child clicked')
+		}
+		else if(event.target.id==='parent'){
+			console.log('parent clicked')
+		}
+		else if(event.target.id==='grandparent'){
+			console.log('grandparent clicked')
+		}
+
+})
+
+
+so instead of using three event handler on three different element we can only use one which makes our code clean
+
+===============================================================================================================================================================================
+setTimeout(()=>{
+    console.log("hello setTimeout")
+})
+// 5
+
+let promise=new Promise((resolve,reject)=>{
+    console.log("promise")
+})
+// 1
+setImmediate(()=>{
+    console.log("setImmidate")
+})
+// 4
+process.nextTick(()=>{
+    console.log("process.next")
+// 3
+})
+console.log("hello")
+// 2
+
+=======================================================================================================================================================================================================
+
+				EVENT Capturing in JS
+
+It is the just opposite of the event bubbling when an event starts from  the parent element and its ends until it reaches to its child.
+
+we can stop event bubbling and event capturing  by using event.stopPropogation method
+
+document.getElementById('click',(e)=>{
+	console.log("child clicked")
+	e.stopPropogation();
+})
+
+
+
+
+
+===========================================================================================================================================================================================
+							Normal Function and Arrow function difference
+
+
+
+1.We can hoist the calling of normal function that means we can call the normal function before its declaration while in the case of arrow function we can not do so.
+2.In nromal function we can accept one than one arguments by using argument key word while in the case of arrow function we can take more than one argument
+ using the argument key word it give the argument not define to accept all the argument inside the arrow function we need to use rest operator.
+3.In normal function we have protype having constructor(inside prototype we have length of arguments,function name) but in arrow function we do not have prototypes so it will show undefined.
+by doing console.log(functionname.prototype)
+4.If we console the new keyword along with the function then it will return the same function , while in the case of the arrow function it shows error.
+console.log(new functionname())
+5.this keyword only work with the normal functio  not with the arrow function.
+
+const obj={
+	name:"Himanshu",
+	normal:function(){
+		console.log(`normal function ${this.name}`)
+		},
+	arrow:()=>{
+		console.log(`arrow function ${this.name}`)
+		}
+}
+
+obj.normal()
+obj.arrow()
+
+=============================================================================================================================================================================================
+							Pure and Impure function in js 
+
+
+Pure Functions:- Pure functions are those function which always return the same output for the input and it does not cause any side effects.
+
+function add(a, b) {
+  return a + b;
+}
+
+
+use case:-
+
+-Easy to test and debug since output only depends on the input
+-Helps in maintaining immutable state used in react and redux.
+-Safe to run in parallel becasue there is no shared state.
+
+
+Impure Functions :- Those functions which may return different output even with same input .
+		Has side effects, such as:
+
+        	Modifying global variables
+
+		Writing to the DOM
+
+		Logging to the console
+
+		Fetching data
+
+		Reading current time, etc.
+
+example:-
+
+let count = 0;
+
+function increment() {
+  count++;
+  console.log(count);
+}
+
+	useCases for impure function :-
+		-Uses for performance optimization(sometimes cachcing or memoization requires mutating state)
+		-working with localstoreage and cookies and maintiang the application state.
+		-You must interact with APIs, DOM, user input/output
+
+
+=============================================================================================================================================================================================
+
+		-
+
+
+
+
+
+
+
+
+
+
+
+
+
+
